@@ -11,7 +11,6 @@
             public Garden Garden { get; internal set; }
             public Position StartingPosition { get; internal set; }
             public Mower Mower { get; internal set; }
-            public bool StartMowerResult { get; internal set; }
         }
                 
         [Scenario]
@@ -28,9 +27,9 @@
             "And I have a position I want the mower to start in"
                 .x(() => context.StartingPosition = new Position(new Coordinates(startX, startY), Orientation.South));
             "When I start the Mower"
-                .x(() => context.StartMowerResult = context.Mower.Start(context.StartingPosition));
+                .x(() => context.Mower.Start(context.StartingPosition));
             "Then the Mower starts sucesfully"
-                .x(() => context.StartMowerResult.Should().BeTrue());
+                .x(() => context.Mower.HasStarted.Should().BeTrue());
         }
 
         [Scenario]
@@ -51,9 +50,28 @@
             "And I have a position I want the mower to start in"
                 .x(() => context.StartingPosition = new Position(new Coordinates(startX, startY), Orientation.South));
             "When I start the Mower"
-                .x(() => context.StartMowerResult = context.Mower.Start(context.StartingPosition));
-            "Then the Mower starts sucesfully"
-                .x(() => context.StartMowerResult.Should().BeFalse());
+                .x(() => context.Mower.Start(context.StartingPosition));
+            "Then the Mower should not start"
+                .x(() => context.Mower.HasStarted.Should().BeFalse());
+        }
+
+        [Scenario]
+        public void StartAMowerThatHasAlreadyBeenStarted()
+        {
+            var context = new StartupTestContext();
+
+            "Given I have a garden"
+                .x(() => context.Garden = new Garden(1, 1));
+            "And I have a Mower"
+                .x(() => context.Mower = new Mower(context.Garden));
+            "And I have a position I want the mower to start in"
+                .x(() => context.StartingPosition = new Position(new Coordinates(1, 1), Orientation.South));
+            "And I have started the Mower"
+                .x(() => context.Mower.Start(context.StartingPosition));
+            "When I start the Mower again"
+                .x(() => context.Mower.Start(context.StartingPosition));
+            "Then the Mower should not start"
+                .x(() => context.Mower.HasStarted.Should().BeTrue());
         }
     }
 }

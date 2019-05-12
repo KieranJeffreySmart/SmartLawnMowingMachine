@@ -1,4 +1,6 @@
-﻿namespace Slmm.Domain
+﻿using System;
+
+namespace Slmm.Domain
 {
     public class Mower
     {
@@ -10,9 +12,17 @@
             this.garden = garden;
         }
 
-        public bool Start(Position startingPosition)
+        public bool HasStarted { get; private set; }
+
+        public void Start(Position startingPosition)
         {
-            return this.garden.CellIsEmpty(startingPosition.Coordinates);
+            this.position = startingPosition;
+            this.HasStarted = this.garden.CellIsInsideGarden(startingPosition.Coordinates);
+        }
+
+        public Position GetPosition()
+        {
+            return this.position.Clone() as Position;
         }
     }
 }
