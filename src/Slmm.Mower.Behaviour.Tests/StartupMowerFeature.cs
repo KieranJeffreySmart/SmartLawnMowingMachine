@@ -39,6 +39,7 @@
         [Example(2, 2, 3, 1)]
         [Example(2, 2, 1, 3)]
         [Example(2, 2, 3, 3)]
+        [Example(5, 5, 6, 6)]
         public void CreateAMowerOutsideTheGarden(int gardenLength, int gardenWidth, int startX, int startY)
         {
             var context = new StartupTestContext();

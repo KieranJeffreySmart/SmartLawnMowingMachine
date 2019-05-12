@@ -11,8 +11,8 @@
 
         internal bool CellIsInsideGarden(Coordinates coordinates)
         {
-            return coordinates.X > 0 && coordinates.X <= this.map.Rank
-                && coordinates.Y > 0 && coordinates.Y <= this.map.GetLength(coordinates.X-1);
+            return coordinates.X > 0 && coordinates.X <= this.map.GetLength(1)
+                && coordinates.Y > 0 && coordinates.Y <= this.map.GetLength(0);
         }
     }
 }

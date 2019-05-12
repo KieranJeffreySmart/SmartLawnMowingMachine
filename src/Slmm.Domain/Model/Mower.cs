@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Slmm.Api;
+using System;
 using System.Collections.Generic;
 using System.Threading;
 
@@ -72,6 +73,11 @@ namespace Slmm.Domain
 
         public void Move()
         {
+            if (this.IsBusy)
+            {
+                throw new MowerIsBusyException();
+            }
+
             var nextPosition = this.GetNextPosition();
             if (this.garden.CellIsInsideGarden(nextPosition.Coordinates))
             {
@@ -82,6 +88,11 @@ namespace Slmm.Domain
 
         public void Turn(TurnDirection turnDirection)
         {
+            if (this.IsBusy)
+            {
+                throw new MowerIsBusyException();
+            }
+
             var command = getNewOrientationCommands[this.position.Orientation];
 
             if (command == null)

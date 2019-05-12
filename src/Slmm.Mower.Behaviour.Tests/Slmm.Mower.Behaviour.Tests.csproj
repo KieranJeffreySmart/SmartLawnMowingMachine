@@ -17,6 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Slmm.Api.Infrastructure\Slmm.Api.Infrastructure.csproj" />
     <ProjectReference Include="..\Slmm.Api\Slmm.Api.csproj" />
     <ProjectReference Include="..\Slmm.Domain\Slmm.Domain.csproj" />
   </ItemGroup>
