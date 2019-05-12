@@ -1,7 +1,6 @@
 ﻿
 namespace Slmm.Mower.Behaviour.Tests
 {
-    using System;
     using FluentAssertions;
     using Slmm.Domain;
     using Xbehave;
@@ -86,9 +85,9 @@ namespace Slmm.Mower.Behaviour.Tests
                 .x(() => context.Garden = new Garden(gardenLength, gardenWidth));
             "And I have started a new Mower inside the garden"
                 .x(() => context.Mower = this.CreateNewMower(context.Garden, startX, startY, orientation));
-            "When I turn Mower forward"
+            "When I turn the Mower"
                 .x(() => context.Mower.Turn(turnDirection));
-            "Then its position should not change"
+            "Then its orientation should be as expected"
                 .x(() => context.Mower.GetPosition().Orientation.Should().Be(expectedOrientation));
         }
 
