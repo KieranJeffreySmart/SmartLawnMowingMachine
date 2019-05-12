@@ -2,7 +2,7 @@
 {
     using Xbehave;
     using FluentAssertions;
-    using Slmm.Domain;
+    using Slmm.Domain.Model;
 
     public class StartupMowerFeature
     {

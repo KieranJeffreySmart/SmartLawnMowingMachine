@@ -1,7 +1,9 @@
 ﻿namespace Slmm.Mower.Behaviour.Tests
 {
     using FluentAssertions;
-    using Slmm.Domain;
+    using Slmm.Domain.Model;
+    using Slmm.Domain.Exceptions;
+    using System;
     using Xbehave;
 
     public class MoveMowerFeature
@@ -56,15 +58,17 @@
         public void MoveMowerToAnInvalidCell(int gardenLength, int gardenWidth, int startX, int startY, Orientation orientation)
         {
             var context = new MoveMowerTestContext();
+            Action moveAction = null;
+
             Position currentPosition = new Position(new Coordinates(startX, startY), orientation);
             "Given I have a garden"
                 .x(() => context.Garden = new Garden(gardenLength, gardenWidth));
             "And I have started a new Mower inside the garden"
                 .x(() => context.Mower = this.CreateNewMower(context.Garden, startX, startY, orientation));
             "When I move the Mower forward"
-                .x(() => context.Mower.Move());
+                .x(() => moveAction = new Action(() => context.Mower.Move()));
             "Then its position should not change"
-                .x(() => this.AssertPosition(context.Mower.GetPosition(), currentPosition.Coordinates.X, currentPosition.Coordinates.Y, currentPosition.Orientation));
+                .x(() => moveAction.Should().Throw<OutOfGardenBoundaryException>());
         }
 
         [Scenario]

@@ -31,17 +31,7 @@
         {
             var result = await this.service.Move();
 
-            if (result == MowerResponseResult.InvalidInput)
-            {
-                return BadRequest();
-            }
-
-            if (result == MowerResponseResult.IsBusy)
-            {
-                return Conflict("The Mower Is Busy");
-            }
-
-            return Ok();
+            return ResolveHttpResponse(result);
         }
 
         // POST api/values
@@ -50,15 +40,25 @@
         public async Task<ActionResult> TurnMower([FromBody] string orientation)
         {
             var result = await this.service.Turn(orientation);
+            
+            return ResolveHttpResponse(result);
+        }
 
-            if (result == MowerResponseResult.InvalidInput)
+        private ActionResult ResolveHttpResponse(MowerResponseResult mowerResponseResult)
+        {
+            if (mowerResponseResult == MowerResponseResult.InvalidInput)
             {
                 return BadRequest();
             }
 
-            if (result == MowerResponseResult.IsBusy)
+            if (mowerResponseResult == MowerResponseResult.IsBusy)
             {
-                return Conflict("The Mower Is Busy");
+                return Accepted("", "The Mower Is Busy");
+            }
+
+            if (mowerResponseResult == MowerResponseResult.OutOfBoundary)
+            {
+                return Accepted("", "The Mower cannot move beyond the garden boundary");
             }
 
             return Ok();

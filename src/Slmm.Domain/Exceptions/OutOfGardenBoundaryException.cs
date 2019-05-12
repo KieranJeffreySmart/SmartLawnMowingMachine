@@ -3,7 +3,7 @@
     using System;
 
     [Serializable]
-    public class MowerIsBusyException : Exception
+    public class OutOfGardenBoundaryException : Exception
     {
     }
 }

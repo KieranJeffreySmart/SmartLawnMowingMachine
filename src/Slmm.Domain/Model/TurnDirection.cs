@@ -1,4 +1,4 @@
-﻿namespace Slmm.Domain
+﻿namespace Slmm.Domain.Model
 {
     public enum TurnDirection
     {

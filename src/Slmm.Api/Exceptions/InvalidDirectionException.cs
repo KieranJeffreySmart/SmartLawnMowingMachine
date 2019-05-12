@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Slmm.Api.Exceptions
+﻿namespace Slmm.Api.Exceptions
 {
+    using System;
+
     [Serializable]
     public class InvalidDirectionException: Exception
     {

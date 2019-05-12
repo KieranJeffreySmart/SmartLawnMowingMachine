@@ -2,7 +2,8 @@
 {
     using Slmm.Api.Presentation;
     using Slmm.Api.Presentation.Dtos;
-    using Slmm.Domain;
+    using Slmm.Domain.Model;
+    using Slmm.Domain.Exceptions;
     using Slmm.Domain.Factories;
     using System;
     using System.Threading.Tasks;
@@ -65,6 +66,10 @@
                 {
                     return MowerResponseResult.IsBusy;
                 }
+                catch(OutOfGardenBoundaryException)
+                {
+                    return MowerResponseResult.OutOfBoundary;
+                }
             });
         }
 
@@ -72,12 +77,5 @@
         {
             return await Task.Run(() => this.Mower.GetPosition().ToDto());
         }
-    }
-
-    public enum MowerResponseResult
-    {
-        Success,
-        IsBusy,
-        InvalidInput
     }
 }

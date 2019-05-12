@@ -1,6 +1,6 @@
 ﻿namespace Slmm.Api.Infrastructure
 {
-    using Slmm.Domain;
+    using Slmm.Domain.Model;
     using Slmm.Domain.Factories;
     using System;
 

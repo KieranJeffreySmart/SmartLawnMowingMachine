@@ -1,9 +1,7 @@
-﻿
-
-namespace Slmm.Api.Presentation
+﻿namespace Slmm.Api.Presentation
 { 
     using Slmm.Api.Presentation.Dtos;
-    using Slmm.Domain;
+    using Slmm.Domain.Model;
 
     public static class DtoTransformExtensions
     {

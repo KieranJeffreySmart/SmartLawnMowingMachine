@@ -5,8 +5,7 @@
     using Slmm.Api;
     using Slmm.Api.Infrastructure;
     using Slmm.Api.Presentation.Dtos;
-    using Slmm.Domain;
-    using System;
+    using Slmm.Domain.Model;
     using System.Threading;
     using System.Threading.Tasks;
     using Xbehave;
@@ -24,8 +23,8 @@
         [Background]
         public void SetupMowerService()
         {
-            int gardenLength = 2;
-            int gardenWidth = 2;
+            int gardenLength = 5;
+            int gardenWidth = 5;
             int startX = 1;
             int startY = 1;
             Orientation orientation = Orientation.South;
@@ -112,9 +111,7 @@
         [Scenario]
         public void MoveWhileMovingMower()
         {
-            Coordinates expectedCoordinates = new Coordinates(1, 2);
             Task moveMotorTask = null;
-            PositionDto currentPosition = null;
             var moveResult = MowerResponseResult.Success;
 
             "Given I have requested the Mower move"
