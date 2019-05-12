@@ -2,13 +2,13 @@
 {
     public class Coordinates
     {
-        private readonly int xCoordinate;
-        private readonly int yCoordinate;
-
         public Coordinates(int xCoordinate, int yCoordinate)
         {
-            this.xCoordinate = xCoordinate;
-            this.yCoordinate = yCoordinate;
+            this.X = xCoordinate;
+            this.Y = yCoordinate;
         }
+
+        public int X { get; }
+        public int Y { get; }
     }
 }

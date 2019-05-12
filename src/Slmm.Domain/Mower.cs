@@ -12,7 +12,7 @@
 
         public bool Start(Position startingPosition)
         {
-            return true;
+            return this.garden.CellIsEmpty(startingPosition.Coordinates);
         }
     }
 }
