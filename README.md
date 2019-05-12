@@ -46,18 +46,3 @@ The SLMM never goes outside of the dimensions of the garden as supplied during s
 The SLMM web API remains responsive - get current position returns a value immediately regardless if the SLMM is busy rotating or moving forward.
 
 When queried the SLMM should return the current position until it finished moving.
-
-
-Assessment
-
-Your solution will be assessed based on:
-
-Use of the language
-
-Readability and maintainability of code
-
-Adhering to coding standards
-
-Allocating responsibilities to classes
-
-Testing approach and methodology
