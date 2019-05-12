@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 
 namespace Slmm.Domain
 {
@@ -47,12 +48,16 @@ namespace Slmm.Domain
             }
         };
 
+        private const int MillisecondsToTurn = 2000;
+        private const int MillisecondsToMove = 5000;
+
         public Mower(Garden garden)
         {
             this.garden = garden;
         }
 
         public bool HasStarted { get; private set; }
+        public bool IsBusy { get; private set; }
 
         public void Start(Position startingPosition)
         {
@@ -70,8 +75,23 @@ namespace Slmm.Domain
             var nextPosition = this.GetNextPosition();
             if (this.garden.CellIsInsideGarden(nextPosition.Coordinates))
             {
+                this.SimulateWork(MillisecondsToMove);
                 this.position = nextPosition;
             }
+        }
+
+        public void Turn(TurnDirection turnDirection)
+        {
+            var command = getNewOrientationCommands[this.position.Orientation];
+
+            if (command == null)
+            {
+                throw new ArgumentOutOfRangeException($"No command exists for the orientation {this.position.Orientation} to get a new orientation");
+            }
+
+            this.SimulateWork(MillisecondsToTurn);
+
+            this.position = new Position(this.position.Coordinates.Clone() as Coordinates, command(turnDirection));
         }
 
         private Position GetNextPosition()
@@ -86,16 +106,11 @@ namespace Slmm.Domain
             return command(this.position);
         }
 
-        public void Turn(TurnDirection turnDirection)
+        private void SimulateWork(int millisecondsTaken)
         {
-            var command = getNewOrientationCommands[this.position.Orientation];
-
-            if (command == null)
-            {
-                throw new ArgumentOutOfRangeException($"No command exists for the orientation {this.position.Orientation} to get a new orientation");
-            }
-
-            this.position = new Position(this.position.Coordinates.Clone() as Coordinates, command(turnDirection));
+            this.IsBusy = true;
+            Thread.Sleep(millisecondsTaken);
+            this.IsBusy = false;
         }
     }
 }
