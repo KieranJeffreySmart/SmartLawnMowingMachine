@@ -44,7 +44,7 @@ namespace Slmm.Mower.Behaviour.Tests
                 .x(() => context.Garden = new Garden(gardenLength, gardenWidth));
             "And I have started a new Mower inside the garden"
                 .x(() => context.Mower = this.CreateNewMower(context.Garden, startX, startY, orientation));
-            "When I move Mower forward"
+            "When I move the Mower forward"
                 .x(() => context.Mower.Move());
             "Then its position should change as expected"
                 .x(() => this.AssertPosition(context.Mower.GetPosition(), expectedX, expectedY, orientation));
@@ -63,10 +63,33 @@ namespace Slmm.Mower.Behaviour.Tests
                 .x(() => context.Garden = new Garden(gardenLength, gardenWidth));
             "And I have started a new Mower inside the garden"
                 .x(() => context.Mower = this.CreateNewMower(context.Garden, startX, startY, orientation));
-            "When I move Mower forward"
+            "When I move the Mower forward"
                 .x(() => context.Mower.Move());
             "Then its position should not change"
                 .x(() => this.AssertPosition(context.Mower.GetPosition(), currentPosition.Coordinates.X, currentPosition.Coordinates.Y, currentPosition.Orientation));
+        }
+
+        [Scenario]
+        [Example(2, 2, 1, 1, Orientation.North, TurnDirection.Clockwise, Orientation.East)]
+        [Example(2, 2, 1, 1, Orientation.West, TurnDirection.Clockwise, Orientation.North)]
+        [Example(2, 2, 2, 2, Orientation.South, TurnDirection.Clockwise, Orientation.West)]
+        [Example(2, 2, 2, 2, Orientation.East, TurnDirection.Clockwise, Orientation.South)]
+        [Example(2, 2, 1, 1, Orientation.North, TurnDirection.AntiClockwise, Orientation.West)]
+        [Example(2, 2, 1, 1, Orientation.West, TurnDirection.AntiClockwise, Orientation.South)]
+        [Example(2, 2, 2, 2, Orientation.South, TurnDirection.AntiClockwise, Orientation.East)]
+        [Example(2, 2, 2, 2, Orientation.East, TurnDirection.AntiClockwise, Orientation.North)]
+        public void TurnMower(int gardenLength, int gardenWidth, int startX, int startY, Orientation orientation, TurnDirection turnDirection, Orientation expectedOrientation)
+        {
+            var context = new MoveMowerTestContext();
+            Position currentPosition = new Position(new Coordinates(startX, startY), orientation);
+            "Given I have a garden"
+                .x(() => context.Garden = new Garden(gardenLength, gardenWidth));
+            "And I have started a new Mower inside the garden"
+                .x(() => context.Mower = this.CreateNewMower(context.Garden, startX, startY, orientation));
+            "When I turn Mower forward"
+                .x(() => context.Mower.Turn(turnDirection));
+            "Then its position should not change"
+                .x(() => context.Mower.GetPosition().Orientation.Should().Be(expectedOrientation));
         }
 
         private void AssertPosition(Position currentPosition, int posX, int posY, Orientation orientation)

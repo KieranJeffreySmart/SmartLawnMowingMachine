@@ -7,4 +7,10 @@
         South,
         West
     }
+
+    public enum TurnDirection
+    {
+        Clockwise,
+        AntiClockwise
+    }
 }
