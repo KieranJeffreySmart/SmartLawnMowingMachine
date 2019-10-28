@@ -4,12 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using Slmm.Api;
 using Slmm.Api.Infrastructure;
 using Slmm.Domain.Factories;
@@ -32,6 +29,11 @@ namespace Slmm.WebApplication
             services.AddSingleton<AsyncSmartLawnMowingMachineService>();
             services.AddSingleton<IMowerFactory, MowerFactory>();
             services.AddSingleton<ISettingsResolver>(new ConfigurationSettingsResolver(Configuration));
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Swashbuckle.AspNetCore.Swagger.Info { Title = "Smart Lawn Mowing Machine", Version = "v1" });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -45,6 +47,18 @@ namespace Slmm.WebApplication
             {
                 app.UseHsts();
             }
+
+            app.UseDefaultFiles(new DefaultFilesOptions
+            {
+                DefaultFileNames = new
+                    List<string> { "/swagger" }
+            });
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Smart Lawn Mowing Machine V1");
+            });
 
             app.UseHttpsRedirection();
             app.UseMvc();

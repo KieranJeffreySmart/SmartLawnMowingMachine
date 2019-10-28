@@ -16,7 +16,6 @@
             this.service = service;
         }
 
-        // GET api/values
         [HttpGet]
         [Route("position")]
         public async Task<ActionResult<PositionDto>> Get()
@@ -24,7 +23,6 @@
             return new ActionResult<PositionDto>(await this.service.GetPosition());
         }
 
-        // POST api/values
         [HttpPost]
         [Route("move")]
         public async Task<ActionResult> MoveMower()
@@ -34,7 +32,6 @@
             return ResolveHttpResponse(result);
         }
 
-        // POST api/values
         [HttpPost]
         [Route("turn")]
         public async Task<ActionResult> TurnMower([FromBody] string orientation)
