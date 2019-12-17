@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -17,8 +17,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Slmm.Api\Slmm.Api.csproj" />
-    <ProjectReference Include="..\Slmm.Domain\Slmm.Domain.csproj" />
+    <ProjectReference Include="..\slmm.LawnMowing.Api\slmm.LawnMowing.Api.csproj" />
+    <ProjectReference Include="..\slmm.LawnMowing\slmm.LawnMowing.csproj" />
   </ItemGroup>
 
 </Project>

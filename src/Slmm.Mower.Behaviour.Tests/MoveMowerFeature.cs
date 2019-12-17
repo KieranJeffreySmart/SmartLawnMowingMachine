@@ -1,9 +1,9 @@
 ﻿namespace Slmm.Mower.Behaviour.Tests
 {
     using FluentAssertions;
-    using Slmm.Domain.Model;
-    using Slmm.Domain.Exceptions;
     using System;
+    using slmm.LawnMowing.Exceptions;
+    using slmm.LawnMowing.Model;
     using Xbehave;
 
     public class MoveMowerFeature
