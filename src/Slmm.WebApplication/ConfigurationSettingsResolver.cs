@@ -1,7 +1,7 @@
 ﻿namespace Slmm.WebApplication
 {
     using Microsoft.Extensions.Configuration;
-    using Slmm.Api.Infrastructure;
+    using Slmm.Api;
 
     public class ConfigurationSettingsResolver : ISettingsResolver
     {

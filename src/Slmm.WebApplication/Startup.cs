@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Slmm.Api;
-using Slmm.Api.Infrastructure;
 using Slmm.Domain.Factories;
 
 namespace Slmm.WebApplication
@@ -32,7 +28,7 @@ namespace Slmm.WebApplication
 
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new Swashbuckle.AspNetCore.Swagger.Info { Title = "Smart Lawn Mowing Machine", Version = "v1" });
+                c.SwaggerDoc("v1", new Swashbuckle.AspNetCore.Swagger.Info { Title = "Smart Lawn Mowing Machine [L]", Version = "v1" });
             });
         }
 

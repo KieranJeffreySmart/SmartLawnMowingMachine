@@ -3,7 +3,6 @@
     using FluentAssertions;
     using Moq;
     using Slmm.Api;
-    using Slmm.Api.Infrastructure;
     using Slmm.Api.Presentation.Dtos;
     using Slmm.Domain.Model;
     using System.Threading;
@@ -77,7 +76,7 @@
             PositionDto currentPosition = null;
 
             "Given I have requested the Mower turn"
-                .x(async () => turnMotorTask = this.context.Service.Turn(turnDirection));
+                .x(() => turnMotorTask = this.context.Service.Turn(turnDirection));
             "When I get the Mowers position before the work is complete"
                 .x(async () => currentPosition = await this.GetPositionBeforeWorkIsComplete());
             "Then its orientation should not change"
@@ -97,7 +96,7 @@
             PositionDto currentPosition = null;
 
             "Given I have requested the Mower move"
-                .x(async () => turnMotorTask = this.context.Service.Move());
+                .x(() => turnMotorTask = this.context.Service.Move());
             "When I get the Mowers position before the work is complete"
                 .x(async () => currentPosition = await this.context.Service.GetPosition());
             "Then its position should not change"
@@ -115,7 +114,7 @@
             var moveResult = MowerResponseResult.Success;
 
             "Given I have requested the Mower move"
-                .x(async () => moveMotorTask = this.context.Service.Move());
+                .x(() => moveMotorTask = this.context.Service.Move());
             "When I move the Mower before the work is complete"
                 .x(async () => moveResult = await this.MoveBeforeWorkIsComplete(this.context.Service));
             "Then it should not be sucessfull"
@@ -130,13 +129,11 @@
         public void TurnWhileTurningMower()
         {
             string turnDirection = TurnDirection.Clockwise.ToString();
-            Orientation expectedOrientation = Orientation.West;
             Task turnMotorTask = null;
-            PositionDto currentPosition = null;
             var turnResult = MowerResponseResult.Success;
 
             "Given I have requested the Mower turn"
-                .x(async () => turnMotorTask = this.context.Service.Turn(turnDirection));
+                .x(() => turnMotorTask = this.context.Service.Turn(turnDirection));
             "When I turn the Mower before the work is complete"
                 .x(async () => turnResult = await this.TurnBeforeWorkIsComplete(this.context.Service, turnDirection));
             "Then it should not be sucessfull"

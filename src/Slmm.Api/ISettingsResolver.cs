@@ -1,4 +1,4 @@
-﻿namespace Slmm.Api.Infrastructure
+﻿namespace Slmm.Api
 {
     public interface ISettingsResolver
     {

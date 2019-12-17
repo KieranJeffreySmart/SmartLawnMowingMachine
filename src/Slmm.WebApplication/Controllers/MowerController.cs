@@ -11,10 +11,7 @@
     {
         AsyncSmartLawnMowingMachineService service;
 
-        public MowerController(AsyncSmartLawnMowingMachineService service)
-        {
-            this.service = service;
-        }
+        public MowerController(AsyncSmartLawnMowingMachineService service) => this.service = service;
 
         [HttpGet]
         [Route("position")]

@@ -1,6 +1,5 @@
 applications:
 - name: SmartLawnMowingMachine
-  path: ./bin/netcoreapp2.2/publish
   memory: 2G
   instances: 1
   buildpack: dotnet_core_buildpack

@@ -21,5 +21,12 @@
     <ProjectReference Include="..\Slmm.Api.Infrastructure\Slmm.Api.Infrastructure.csproj" />
     <ProjectReference Include="..\Slmm.Api\Slmm.Api.csproj" />
   </ItemGroup>
-
+  <PropertyGroup>
+    <CloudFoundryManifestFile>manifest.yml</CloudFoundryManifestFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include="manifest.yml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content> 
+    </ItemGroup>
 </Project>
